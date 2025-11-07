@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Asistente IA para WhatsApp – SebasBot</title>
+  <meta name="description" content="Convierte WhatsApp en un canal de ventas 24/7. Captura leads, responde FAQs y agenda citas con tu asistente IA." />
+  <style>
+    :root{
+      --bg:#0b0c10; --card:#111218; --text:#e6e6f0; --muted:#a8adbd;
+      --primary:#7c3aed; --primary-2:#9f67ff; --stroke:#242634; --success:#10b981;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .nowrap{white-space:nowrap}
+    .grad{background:linear-gradient(90deg,var(--primary),var(--success));-webkit-background-clip:text;background-clip:text;color:transparent}
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;justify-content:space-between;padding:14px 20px;border-bottom:1px solid transparent;background:rgba(11,12,16,.7);backdrop-filter:saturate(150%) blur(8px)}
+    .brand{font-weight:800}
+    .nav nav{display:flex;gap:18px}
+    .btn{display:inline-block;border:1px solid var(--stroke);padding:12px 18px;border-radius:12px;font-weight:600;transition:.2s all ease; text-align:center}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{background:var(--primary);border-color:transparent;color:white;box-shadow:0 6px 16px rgba(124,58,237,.35)}
+    .btn.primary:hover{background:var(--primary-2)}
+    .btn.ghost{background:transparent}
+    .btn.sm{padding:8px 12px}
+    .btn.block{display:block;width:100%}
+    /* LAYOUT */
+    main section{padding:64px 20px;margin:0 auto;max-width:1100px}
+    .hero{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;padding-top:40px}
+    .hero__copy h1{font-size:42px;line-height:1.1;margin:0 0 12px}
+    .hero__copy p{color:var(--muted);max-width:560px}
+    .cta-row{display:flex;gap:12px;margin:22px 0 14px;flex-wrap:wrap}
+    .hero__card{background:linear-gradient(180deg,#0f1016,#0a0b10);border:1px solid var(--stroke);border-radius:20px;padding:18px}
+    .chat{display:grid;gap:10px}
+    .msg{padding:12px 14px;border-radius:12px;max-width:90%}
+    .msg.user{background:#1c1f2b;justify-self:end}
+    .msg.bot{background:#151826;border:1px solid #1c2030}
+    /* FEATURES */
+    .features h2,.how h2,.integrations h2,.pricing h2,.cta h2,.faq h2{font-size:30px;margin:0 0 18px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .grid3 article{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:18px}
+    .grid3 h3{margin:6px 0 8px}
+    /* HOW */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;list-style:none;padding:0;margin:14px 0 22px}
+    .steps li{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:flex-start}
+    .steps span{background:var(--primary);color:#fff;font-weight:700;border-radius:999px;min-width:28px;height:28px;display:grid;place-items:center;margin-top:2px}
+    .cards2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .cards2 article{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:18px}
+    /* PRICING */
+    .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:18px;display:grid;gap:10px}
+    .card.featured{border-color:var(--primary)}
+    /* CTA FORM */
+    .cta__box{background:linear-gradient(180deg,#10121a,#0b0d14);border:1px solid var(--stroke);border-radius:18px;padding:22px}
+    .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    label{display:grid;gap:6px;font-size:14px;color:var(--muted)}
+    input{background:#12131a;border:1px solid #202331;border-radius:12px;color:var(--text);padding:12px 14px;outline:none}
+    input:focus{border-color:var(--primary)}
+    .form-note{color:var(--muted);font-size:12px}
+    /* FOOTER */
+    .footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:28px 20px;border-top:1px solid var(--stroke);max-width:1100px;margin:40px auto 20px;color:var(--muted)}
+    /* RESPONSIVE */
+    @media (max-width: 960px){
+      .hero{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .cards3{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr}
+      .cards2{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
+    }
+    /* Extra styles for new sections */
+    .features-cards article{display:grid;gap:8px}
+    .mini-list{margin:6px 0 0 0;padding-left:16px;color:var(--muted)}
+    .mini-list li{margin:4px 0}
+    .steps-big li{align-items:flex-start}
+    .steps-big li div{display:grid;gap:6px}
+    .checklist{list-style:none;margin:8px 0 0 0;padding:0}
+    .checklist li{position:relative;padding-left:22px;margin:8px 0;color:var(--text)}
+    .checklist li:before{content:'✔';position:absolute;left:0;top:0;color:var(--success)}
+    .pill{display:inline-block;border:0px solid var(--stroke);border-radius:999px;padding:0px 0px;font-size:18px;color:var(--muted);margin-bottom:0px}
+
+    /* Testimonials */
+    .testimonials{position:relative}
+    .ts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .ts-card{background:var(--card);border:1px solid var(--stroke);border-radius:18px;padding:18px;display:grid;gap:10px}
+    .ts-head{display:flex;align-items:center;gap:12px}
+    .ts-ava{width:40px;height:40px;border-radius:999px;background:#222;border:1px solid var(--stroke)}
+    .ts-role{color:var(--muted);font-size:14px}
+    .ts-quote{color:var(--text)}
+
+    /* Compare */
+    .compare{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .cmp-box{background:var(--card);border:1px solid var(--stroke);border-radius:18px;padding:18px}
+    .cmp-box h3{margin-top:0}
+    .cmp-good li:before{content:'✓';color:var(--success)}
+    .cmp-bad li:before{content:'✕';color:#ef4444}
+    .cmp-list{list-style:none;padding:0;margin:0}
+    .cmp-list li{position:relative;padding-left:22px;margin:10px 0}
+
+    /* Live chat demo */
+    .live-demo{background:linear-gradient(180deg,#10121a,#0b0d14);border:1px solid var(--stroke);border-radius:18px;padding:18px}
+    .live-chat{height:360px;border:1px solid var(--stroke);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;overflow:auto;background:#0c0e15}
+    .live-input{display:flex;gap:10px;margin-top:12px}
+    .live-input input{flex:1}
+
+    /* Pricing 2 cards */
+    .cards2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .price-note{color:var(--muted);font-size:12px;margin-top:8px}
+
+    @media (max-width: 960px){
+      .ts-grid{grid-template-columns:1fr}
+      .compare{grid-template-columns:1fr}
+      .cards2{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="#home">SebasBot</a>
+  <nav>
+    <a href="#features">Beneficios</a>
+    <a href="#how">Cómo funciona</a>
+    <a href="#pricing">Precios</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <a class="btn primary sm" href="#demo">Prueba gratis 3 días</a>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div class="hero__copy">
+      <h1>Tu <span class="grad">Chatbot con IA</span> que vende y atiende 24/7 por WhatsApp </h1>
+      <p>Responde como tú, captura datos de tus conversaciones y agenda citas automáticamente. Todo personalizado.</p>
+      <div class="cta-row">
+        <a class="btn primary" id="cta-whatsapp" target="_blank" href="https://wa.me/34603938659?text=Hola%20quiero%20probar%20el%20chatbot%20IA">Prueba gratis 3 días</a>
+        <a class="btn ghost" href="#demo">Hablemos por WhatsApp</a>
+      </div>
+      <div class="trust" style="color:var(--muted);display:flex;gap:12px;align-items:center;">
+        <span>Tu Chatbot personalizado con Inteligencia Artificial</span>
+      </div>
+    </div>
+    <div class="hero__card">
+      <div class="chat">
+        <div class="msg user">Hola 👋 ¿Cómo funciona?</div>
+        <div class="msg bot">¡Hey! Soy tu asistente 24/7. Hablo por ti. Capturo datos, respondo FAQs y envío a tu agenda. ¿Quieres verlo en acción?</div>
+        <div class="msg user">Sí, agendemos una demo.</div>
+        <div class="msg bot">Perfecto. ¿Qué día y hora te viene bien? 😉</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Resultados inmediatos</h2>
+    <div class="grid3 features-cards">
+      <article>
+        <h3>Activa en días</h3>
+        <p>Plantillas listas y flujo probado. Enchufamos tu WhatsApp y queda funcionando sin código.</p>
+        <ul class="mini-list">
+          <li>Onboarding guiado</li>
+          <li>Mensajes optimizados</li>
+          <li>Listo para escalar</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Convierte mientras duermes</h3>
+        <p>La IA que responde en tu tono y lleva al cierre: pregunta, califica y propone el siguiente paso.</p>
+        <ul class="mini-list">
+          <li>Memoria por conversación</li>
+          <li>FAQs + manejo de objeciones</li>
+          <li>Deriva a ventas para el cierre</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Datos que importan</h3>
+        <p>Guarda automáticamente la información de tu lead en tu Sheets para que le hagas seguimiento.</p>
+        <ul class="mini-list">
+          <li>Nombre, apellido y teléfono</li>
+          <li>Email, país y ciudad</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <h2>Cómo funciona</h2>
+    <ol class="steps steps-big">
+      <li>
+        <span>1</span>
+        <div>
+          <strong>Conectamos WhatsApp + IA</strong>
+          <p>Enlazamos tu URL única y tu <em>system message</em> con la voz de tu marca.</p>
+        </div>
+      </li>
+      <li>
+        <span>2</span>
+        <div>
+          <strong>Captura y guarda datos</strong>
+          <p>SebasBot pide nombre, apellido, email, teléfono y lo envía a tu Google Sheets.</p>
+        </div>
+      </li>
+      <li>
+        <span>3</span>
+        <div>
+          <strong>Responde y agenda</strong>
+          <p>Contesta en tu tono, deriva a un humano para el cierre y todo queda registrado.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="cards2 how-visual">
+      <article>
+        <h3>Incluye</h3>
+        <ul class="checklist">
+          <li>Plantilla de conversación optimizada</li>
+          <li>Memoria por sesión</li>
+          <li>CRM en Google Sheets con columnas listas para el seguimiento</li>
+          <li>Campos: nombre, apellido, nombre completo, teléfono, email, país, ciudad.</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Opcional</h3>
+        <ul class="checklist">
+          <li>Agenda en tu Google Calendar</li>
+          <li>Envío de notificaciones a tu WhatsApp</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <h2>Lo que dicen nuestros clientes</h2>
+    <p style="color:var(--muted);margin-top:-8px">Automatiza tus chats, multiplica tu conversión y escala tu comunidad.</p>
+    <div class="ts-grid">
+      <article class="ts-card">
+        <div class="ts-head">
+          <div class="ts-ava"></div>
+          <div><strong>@olga_tarte (22k)</strong><div class="ts-role">Marca personal</div></div>
+        </div>
+        <p class="ts-quote">“Con SebasBot tripliqué el interés de compra en mi lanzamiento. Responde igual que si hablara yo.”</p>
+      </article>
+      <article class="ts-card">
+        <div class="ts-head">
+          <div class="ts-ava"></div>
+          <div><strong>@pueblo_wanga (18k)</strong><div class="ts-role">Infoproductor</div></div>
+        </div>
+        <p class="ts-quote">“Dejé de perder tiempo calificando leads. Ahora el bot los calienta y los lleva a la compra.”</p>
+      </article>
+      <article class="ts-card">
+        <div class="ts-head">
+          <div class="ts-ava"></div>
+          <div><strong>@axel.arellano (20k)</strong><div class="ts-role">Inversión</div></div>
+        </div>
+        <p class="ts-quote">“Cerré 4 clientes en menos de una semana. Me encanta que tenga memoria para los recordatorios.”</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="compare" id="compare">
+    <div class="cmp-box">
+      <h3>SebasBot</h3>
+      <ul class="cmp-list cmp-good">
+        <li> IA entrenada en tu tono: habla como tu marca</li>
+        <li> Conecta WhatsApp y responde 24/7</li>
+        <li> Guarda leads en Sheets (nombre, apellido, teléfono, email)</li>
+        <li> Memoria conversacional por sesión</li>
+        <li> Soporte directo por WhatsApp con SebasBot</li>
+      </ul>
+    </div>
+    <div class="cmp-box">
+      <h3>Sin SebasBot</h3>
+      <ul class="cmp-list cmp-bad">
+        <li> Respuestas tardías o inconsistentes</li>
+        <li> Leads sin datos ordenados ni seguimiento</li>
+        <li> Sin trazabilidad en las conversaciones</li>
+        <li> Mensajes que suenan a robot o muy genéricos</li>
+        <li> Tiempo perdido en tareas repetitivas</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="live" id="live">
+    <h2>Prueba esta Inteligencia Artificial en acción</h2>
+    <div class="live-demo">
+      <div class="live-chat" id="liveChat">
+        <div class="msg user">Hola</div>
+        <div class="msg bot">¡Hola, soy SebasBot! Para mostrarte una demo, ¿cómo te llamas?</div>
+      </div>
+      <div class="live-input">
+        <input id="liveInput" placeholder="Escribe aquí y presiona Enter" />
+        <a class="btn primary" href="#demo">Prueba gratis 3 días</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <h2>Elige tu plan</h2>
+    <div class="cards2">
+      <article class="card">
+        <div class="pill">Desde 170€/mes</div>
+        <h3>Plan Personal</h3>
+        <p>Ideal para freelancers o marcas personales.</p>
+        <ul class="checklist">
+          <li>1 Asistente Virtual IA con voz personal</li>
+          <li>Conecta 1 cuenta de WhatsApp</li>
+          <li>300 conversaciones completas al mes</li>
+          <li>Memoria conversacional</li>
+          <li>Soporte por WhatsApp con SebasBot</li>
+        </ul>
+        <a class="btn primary block" href="#demo">Prueba gratis 3 días</a>
+        <div class="price-note">Cancela cuando quieras.</div>
+      </article>
+
+      <article class="card featured">
+        <div class="pill">Desde 230€/mes</div>
+        <h3>Plan para Negocio</h3>
+        <p>Para empresas que quieren convertir más y crecer.</p>
+        <ul class="checklist">
+          <li>1 Asistente Virtual IA con voz de tu marca</li>
+          <li>Conecta 1 cuenta de WhatsApp</li>
+          <li>500 conversaciones completas al mes</li>
+          <li>Guarda datos en tu Sheets (nombre, apellido, teléfono, email)</li>
+          <li>Agenda citas</li>
+          <li>Memoria conversacional</li>
+          <li>Soporte por WhatsApp con SebasBot</li>
+        </ul>
+        <a class="btn primary block" href="#demo">Prueba gratis 3 días</a>
+        <div class="price-note">Cancela cuando quieras.</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="cta" id="demo">
+    <div class="cta__box">
+      <h2>Prueba gratis 3 días</h2>
+      <p>Déjanos tus datos y te contactamos.</p>
+      <form id="lead-form" method="post" action="https://n8n-docker-233z.onrender.com/webhook/lead-landing-sebasbot">
+        <div class="grid2">
+          <label>Nombre
+            <input required name="first_name" placeholder="Andrea" />
+          </label>
+          <label>Apellido
+            <input required name="last_name" placeholder="Patiño" />
+          </label>
+          <label>Email
+            <input required type="email" name="email" placeholder="tu@email.com" />
+          </label>
+          <label>Teléfono (con indicativo país)
+            <input required name="phone" placeholder="+34 600 123 456" />
+          </label>
+        </div>
+        <!-- Hidden UTM fields auto-filled -->
+        <input type="hidden" name="utm_source"  id="utm_source" />
+        <input type="hidden" name="utm_medium"  id="utm_medium" />
+        <input type="hidden" name="utm_campaign" id="utm_campaign" />
+        <input type="hidden" name="utm_content"  id="utm_content" />
+        <input type="hidden" name="utm_term"     id="utm_term" />
+        <input type="hidden" name="utm_id"       id="utm_id" />
+        <!-- Full name + WhatsApp-ready -->
+        <input type="hidden" name="full_name"   id="full_name" />
+        <input type="hidden" name="whatsapp_link" id="whatsapp_link" />
+        <br>
+        <button class="btn primary block" type="submit">Prueba gratis 3 días</button>
+        <p class="form-note">Al enviar aceptas nuestra Política de Privacidad.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <h2>Preguntas frecuentes</h2>
+    <details><summary>¿Puede recordar el contexto?</summary><p>Sí. Soporta memoria de sesión y puede consultar historiales según tu configuración.</p></details>
+    <details><summary>¿Se conecta a mi CRM en Sheets?</summary><p>Claro. Enviamos los datos de cada lead a tu Sheets para que les hagas seguimiento.</p></details>
+    <details><summary>¿Cuánto tarda la implementación?</summary><p>Es inmediata, lo tienes funcional el mismo día de compartas los datos de tu empresa.</p></details>
+  </section>
+</main>
+
+<footer class="footer">
+  <div>© <span id="year"></span> SebasBot · Todos los derechos reservados.</div>
+  <div class="links">
+    <a href="#">Privacidad</a>
+    <a href="#">Términos</a>
+  </div>
+</footer>
+
+<script>
+// --- util: read params
+function getParam(name){ return new URLSearchParams(window.location.search).get(name) || ""; }
+// Fill UTMs
+['source','medium','campaign','content','term','id'].forEach(k=>{
+  const v = getParam('utm_'+k);
+  const el = document.getElementById('utm_'+k);
+  if(el) el.value = v;
+});
+
+// Full name + WhatsApp + submit handler
+const form = document.getElementById('lead-form');
+const cta = document.getElementById('cta-whatsapp');
+const WA_NUMBER = '34603938659'; // +34 603 93 86 59 sin signos
+
+if (cta) {
+  const baseMsg = 'Hola, estoy interesado en la prueba gratis de 3 días del chatbot.';
+  cta.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(baseMsg)}`;
+}
+
+if (form) {
+  form.addEventListener('input', e => {
+    const fn = form.querySelector('[name=first_name]').value.trim();
+    const ln = form.querySelector('[name=last_name]').value.trim();
+    const full = (fn + ' ' + ln).trim();
+    const fullField = document.getElementById('full_name');
+    if (fullField) fullField.value = full;
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const fd = new FormData(form);
+    const firstName = (fd.get('first_name') || '').toString().trim();
+    const lastName  = (fd.get('last_name')  || '').toString().trim();
+    const fullName  = (firstName + ' ' + lastName).trim();
+
+    let webhookOk = false;
+
+    // 1) Intentar enviar datos al webhook
+    try {
+      const res = await fetch(form.action, {
+        method: form.method || 'POST',
+        body: fd,
+      });
+      webhookOk = !!res.ok;
+    } catch (err) {
+      console.error('Error enviando datos al webhook', err);
+      webhookOk = false;
+    }
+
+    // 2) Armar mensaje según el resultado del webhook
+    let msg;
+    if (webhookOk) {
+      msg = `Hola, soy ${fullName || 'un interesado'}. Ya he enviado mis datos por el formulario y estoy interesado en la prueba gratis de 3 días del chatbot.`;
+    } else {
+      msg = `Hola, soy ${fullName || 'un interesado'}. Estoy interesado en la prueba gratis de 3 días del chatbot, pero el formulario no pudo enviar mis datos. ¿Podemos seguir por aquí?`;
+    }
+
+    const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+    const waHidden = document.getElementById('whatsapp_link');
+    if (waHidden) waHidden.value = waUrl;
+
+    // 3) Pase lo que pase con el webhook, siempre abrir WhatsApp
+    window.open(waUrl, '_blank');
+  });
+}
+
+// Year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Live chat SIMULATOR (no backend): 2 turns, then CTA
+(function(){
+  const box = document.getElementById('liveChat');
+  const input = document.getElementById('liveInput');
+  const ctaLive = document.querySelector('.live-input a.btn.primary');
+  if(!box || !input) return;
+
+  let turns = 0; // user messages counted
+  let done = false;
+
+  function add(type, text){
+    const d = document.createElement('div');
+    d.className = 'msg ' + type;
+    d.textContent = text;
+    box.appendChild(d);
+    box.scrollTop = box.scrollHeight;
+    return d;
+  }
+  function addHTML(html){
+    const w = document.createElement('div');
+    w.className = 'msg bot';
+    w.innerHTML = html;
+    box.appendChild(w);
+    box.scrollTop = box.scrollHeight;
+    return w;
+  }
+
+  function firstName(v){
+    const p=(v||'').trim().split(' ');
+    return p[0]||'allí';
+  }
+
+  function finish(name){
+    done = true; turns = 999;
+    const html = `Para probarlo de verdad, haz clic aquí ↓<br><br>` +
+                 `<a class="btn primary" href="#demo">Prueba gratis 3 días</a>`;
+    addHTML(html);
+    input.disabled = true;
+    input.placeholder = 'Demo simulada. Usa el botón para continuar →';
+    if(ctaLive) ctaLive.textContent = 'Prueba gratis 3 días';
+  }
+
+  input.addEventListener('keydown', (e)=>{
+    if(e.key !== 'Enter' || !input.value.trim()) return;
+    if(done) return;
+
+    const v = input.value.trim();
+    input.value='';
+    add('user', v);
+    turns++;
+
+    if(turns === 1){
+      add('bot', `Encantado, ${firstName(v)} 🙌`);
+      setTimeout(()=> add('bot', 'Esta es una simulación rápida. Te muestro cómo guardamos datos y agendamos por WhatsApp.'), 400);
+      setTimeout(()=> finish(firstName(v)), 1300);
+    } else {
+      finish(firstName(v));
+    }
+  });
+})();
+</script>
+</body>
+</html>
