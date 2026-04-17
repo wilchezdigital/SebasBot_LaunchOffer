@@ -8,21 +8,24 @@
   <style>
     :root{
       --bg:#0b0c10; --card:#111218; --text:#e6e6f0; --muted:#a8adbd;
-      --primary:#7c3aed; --primary-2:#9f67ff; --stroke:#242634; --success:#10b981;
+      --primary:#ff6a00; --primary-2:#ff8c1a; --stroke:#242634; --success:#10b981;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
     .nowrap{white-space:nowrap}
-    .grad{background:linear-gradient(90deg,var(--primary),var(--success));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .grad{
+      background:linear-gradient(90deg,var(--primary),var(--primary-2));
+      -webkit-background-clip:text;background-clip:text;color:transparent
+    }
     /* NAV */
     .nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;justify-content:space-between;padding:14px 20px;border-bottom:1px solid transparent;background:rgba(11,12,16,.7);backdrop-filter:saturate(150%) blur(8px)}
     .brand{font-weight:800}
     .nav nav{display:flex;gap:18px}
     .btn{display:inline-block;border:1px solid var(--stroke);padding:12px 18px;border-radius:12px;font-weight:600;transition:.2s all ease; text-align:center}
     .btn:hover{transform:translateY(-1px)}
-    .btn.primary{background:var(--primary);border-color:transparent;color:white;box-shadow:0 6px 16px rgba(124,58,237,.35)}
+    .btn.primary{background:var(--primary);border-color:transparent;color:white;box-shadow:0 6px 16px rgba(0,0,0,.35)}
     .btn.primary:hover{background:var(--primary-2)}
     .btn.ghost{background:transparent}
     .btn.sm{padding:8px 12px}
@@ -33,7 +36,12 @@
     .hero__copy h1{font-size:42px;line-height:1.1;margin:0 0 12px}
     .hero__copy p{color:var(--muted);max-width:560px}
     .cta-row{display:flex;gap:12px;margin:22px 0 14px;flex-wrap:wrap}
-    .hero__card{background:linear-gradient(180deg,#0f1016,#0a0b10);border:1px solid var(--stroke);border-radius:20px;padding:18px}
+    .hero__card{
+      background:linear-gradient(180deg,#0f1016,#0a0b10);
+      border:1px solid var(--stroke);
+      border-radius:20px;padding:18px
+    }
+    
     .chat{display:grid;gap:10px}
     .msg{padding:12px 14px;border-radius:12px;max-width:90%}
     .msg.user{background:#1c1f2b;justify-self:end}
@@ -126,16 +134,16 @@
     <a href="#pricing">Precios</a>
     <a href="#faq">FAQ</a>
   </nav>
-  <a class="btn primary sm" href="#demo">Prueba gratis 3 días</a>
+  <a class="btn primary sm" href="#demo">Prueba gratis 14 días</a>
 </header>
 
 <main id="home">
   <section class="hero">
     <div class="hero__copy">
-      <h1>Cada mensaje que no respondes<br><span class="grad">es dinero perdido</span></h1>
-      <p>Este asistente responde, sigue y cierra clientes en WhatsApp automáticamente. Aunque tu no estés. Todo personalizado.</p>
+      <h1>Tu <span class="grad">Chatbot con IA</span> que vende y atiende 24/7 por WhatsApp </h1>
+      <p>Respondo como tú, capturo datos de las conversaciones y contacto a las personas automáticamente. Todo personalizado.</p>
       <div class="cta-row">
-        <a class="btn primary" id="cta-whatsapp" target="_blank" href="https://wa.me/34603938659?text=Hola%20quiero%20probar%20el%20chatbot%20IA">Prueba gratis 3 días</a>
+        <a class="btn primary" href="#demo">Prueba gratis 14 días</a>
         <a class="btn ghost" href="#demo">Hablemos por WhatsApp</a>
       </div>
       <div class="trust" style="color:var(--muted);display:flex;gap:12px;align-items:center;">
@@ -145,7 +153,7 @@
     <div class="hero__card">
       <div class="chat">
         <div class="msg user">Hola 👋 ¿Cómo funciona?</div>
-        <div class="msg bot">¡Hey! Soy tu asistente 24/7. Hablo por ti. Capturo datos, respondo FAQs y envío a tu agenda. ¿Quieres verlo en acción?</div>
+        <div class="msg bot">¡Hey! Soy tu asistente 24/7. Hablo por ti. Capturo datos, respondo preguntas y envío mensajes como si fuera un humano. ¿Quieres verme en acción?</div>
         <div class="msg user">Sí, agendemos una demo.</div>
         <div class="msg bot">Perfecto. ¿Qué día y hora te viene bien? 😉</div>
       </div>
@@ -260,7 +268,7 @@
 
   <section class="compare" id="compare">
     <div class="cmp-box">
-      <h3>SebasBot</h3>
+      <h3>Con SebasBot</h3>
       <ul class="cmp-list cmp-good">
         <li> IA entrenada en tu tono: habla como tu marca</li>
         <li> Conecta WhatsApp y responde 24/7</li>
@@ -285,12 +293,11 @@
     <h2>Prueba esta Inteligencia Artificial en acción</h2>
     <div class="live-demo">
       <div class="live-chat" id="liveChat">
-        <div class="msg user">Hola</div>
         <div class="msg bot">¡Hola, soy SebasBot! Para mostrarte una demo, ¿cómo te llamas?</div>
       </div>
       <div class="live-input">
         <input id="liveInput" placeholder="Escribe aquí y presiona Enter" />
-        <a class="btn primary" href="#demo">Prueba gratis 3 días</a>
+        <a class="btn primary" href="#demo">Prueba gratis 14 días</a>
       </div>
     </div>
   </section>
@@ -305,11 +312,11 @@
         <ul class="checklist">
           <li>1 Asistente Virtual IA con voz personal</li>
           <li>Conecta 1 cuenta de WhatsApp</li>
-          <li>300 conversaciones completas al mes</li>
+          <li>30 conversaciones completas al día</li>
           <li>Memoria conversacional</li>
-          <li>Soporte por WhatsApp con SebasBot</li>
+          <li>Soporte por WhatsApp con SebasBot PRO</li>
         </ul>
-        <a class="btn primary block" href="#demo">Prueba gratis 3 días</a>
+        <a class="btn primary block" href="#demo">Prueba gratis 14 días</a>
         <div class="price-note">Cancela cuando quieras.</div>
       </article>
 
@@ -320,13 +327,13 @@
         <ul class="checklist">
           <li>1 Asistente Virtual IA con voz de tu marca</li>
           <li>Conecta 1 cuenta de WhatsApp</li>
-          <li>500 conversaciones completas al mes</li>
+          <li>100 conversaciones completas al día</li>
           <li>Guarda datos en tu Sheets (nombre, apellido, teléfono, email)</li>
           <li>Agenda citas</li>
           <li>Memoria conversacional</li>
-          <li>Soporte por WhatsApp con SebasBot</li>
+          <li>Soporte por WhatsApp con SebasBot PRO</li>
         </ul>
-        <a class="btn primary block" href="#demo">Prueba gratis 3 días</a>
+        <a class="btn primary block" href="#demo">Prueba gratis 14 días</a>
         <div class="price-note">Cancela cuando quieras.</div>
       </article>
     </div>
@@ -334,35 +341,35 @@
 
   <section class="cta" id="demo">
     <div class="cta__box">
-      <h2>Prueba gratis 3 días</h2>
+      <h2>Prueba gratis 14 días</h2>
       <p>Déjanos tus datos y te contactamos.</p>
-      <form id="lead-form" method="post" action="https://n8n-docker-233z.onrender.com/webhook/lead-landing-sebasbot">
+      <form id="lead-form" method="post">
         <div class="grid2">
           <label>Nombre
-            <input required name="first_name" placeholder="Andrea" />
+            <input required id="first_name" name="entry.1274159542" placeholder="Sebastian" />
           </label>
           <label>Apellido
-            <input required name="last_name" placeholder="Patiño" />
+            <input required id="last_name" name="entry.110172957" placeholder="Vivas" />
           </label>
           <label>Email
-            <input required type="email" name="email" placeholder="tu@email.com" />
+            <input required type="email" name="entry.714567174" placeholder="tu@email.com" />
           </label>
           <label>Teléfono (con indicativo país)
-            <input required name="phone" placeholder="+34 600 123 456" />
+            <input required name="entry.728592466" placeholder="+34 600 123 456" />
           </label>
         </div>
         <!-- Hidden UTM fields auto-filled -->
-        <input type="hidden" name="utm_source"  id="utm_source" />
-        <input type="hidden" name="utm_medium"  id="utm_medium" />
-        <input type="hidden" name="utm_campaign" id="utm_campaign" />
-        <input type="hidden" name="utm_content"  id="utm_content" />
-        <input type="hidden" name="utm_term"     id="utm_term" />
-        <input type="hidden" name="utm_id"       id="utm_id" />
+        <input type="hidden" name="entry.2144108090" id="utm_source" />
+        <input type="hidden" name="entry.964105222" id="utm_medium" />
+        <input type="hidden" name="entry.1923745302" id="utm_campaign" />
+        <input type="hidden" name="entry.172212880" id="utm_content" />
+        <input type="hidden" name="entry.171977719" id="utm_term" />
+        <input type="hidden" name="entry.1169383291" id="utm_id" />
         <!-- Full name + WhatsApp-ready -->
-        <input type="hidden" name="full_name"   id="full_name" />
-        <input type="hidden" name="whatsapp_link" id="whatsapp_link" />
+        <input type="hidden" name="entry.1214786495" id="full_name" />
+
         <br>
-        <button class="btn primary block" type="submit">Prueba gratis 3 días</button>
+        <button class="btn primary block" type="submit">Prueba gratis 14 días</button>
         <p class="form-note">Al enviar aceptas nuestra Política de Privacidad.</p>
       </form>
     </div>
@@ -371,8 +378,8 @@
   <section class="faq" id="faq">
     <h2>Preguntas frecuentes</h2>
     <details><summary>¿Puede recordar el contexto?</summary><p>Sí. Soporta memoria de sesión y puede consultar historiales según tu configuración.</p></details>
-    <details><summary>¿Se conecta a mi CRM en Sheets?</summary><p>Claro. Enviamos los datos de cada lead a tu Sheets para que les hagas seguimiento.</p></details>
-    <details><summary>¿Cuánto tarda la implementación?</summary><p>Es inmediata, lo tienes funcional el mismo día de compartas los datos de tu empresa.</p></details>
+    <details><summary>¿Se conecta a mi CRM en Sheets?</summary><p>Claro. Enviamos los datos de cada lead a tu LMS de SpreadSheets para que les hagas seguimiento.</p></details>
+    <details><summary>¿Cuánto tarda la implementación?</summary><p>Es inmediata, lo tienes funcional el mismo día que compartas los datos de tu empresa.</p></details>
   </section>
 </main>
 
@@ -384,9 +391,34 @@
   </div>
 </footer>
 
+
 <script>
+
+// CONFIG BASE PARA EJECUCIÓN ESCALABLE DEL FORM
+const FORM_CONFIG = {
+  form_url: "https://docs.google.com/forms/d/e/1FAIpQLSfOyNwdF1lK8ljEAd6ZK77LaNrXcLScXH0njYp8orBVL0KphA/formResponse",
+  fields: {
+    full_name: "entry.1214786495",
+    first_name: "entry.1274159542",
+    last_name: "entry.110172957",
+    email: "entry.714567174",
+    phone: "entry.728592466",
+    whatsapp_link: "entry.44797240",
+    utm_source: "entry.2144108090",
+    utm_medium: "entry.964105222",
+    utm_campaign: "entry.1923745302",
+    utm_content: "entry.172212880",
+    utm_term: "entry.171977719",
+    utm_id: "entry.1169383291"
+  }
+};
+</script>
+
+<script>
+
 // --- util: read params
 function getParam(name){ return new URLSearchParams(window.location.search).get(name) || ""; }
+
 // Fill UTMs
 ['source','medium','campaign','content','term','id'].forEach(k=>{
   const v = getParam('utm_'+k);
@@ -394,20 +426,25 @@ function getParam(name){ return new URLSearchParams(window.location.search).get(
   if(el) el.value = v;
 });
 
-// Full name + WhatsApp + submit handler
+// Base config
 const form = document.getElementById('lead-form');
-const cta = document.getElementById('cta-whatsapp');
-const WA_NUMBER = '34603938659'; // +34 603 93 86 59 sin signos
+form.action = FORM_CONFIG.form_url;
 
+const cta = document.getElementById('cta-whatsapp');
+const WA_NUMBER = '34603938659'; // número de SebasBot
+
+// CTA botón (usuario → tú)
 if (cta) {
-  const baseMsg = 'Hola, estoy interesado en la prueba gratis de 3 días del chatbot.';
+  const baseMsg = 'Hola, estoy interesado en la prueba gratis de 14 días de SebasBot.';
   cta.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(baseMsg)}`;
 }
 
 if (form) {
-  form.addEventListener('input', e => {
-    const fn = form.querySelector('[name=first_name]').value.trim();
-    const ln = form.querySelector('[name=last_name]').value.trim();
+
+  // Nombre completo automático
+  form.addEventListener('input', () => {
+    const fn = document.getElementById('first_name').value.trim();
+    const ln = document.getElementById('last_name').value.trim();
     const full = (fn + ' ' + ln).trim();
     const fullField = document.getElementById('full_name');
     if (fullField) fullField.value = full;
@@ -416,54 +453,67 @@ if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // VALIDACIÓN TELÉFONO
+    const phoneInput = document.querySelector('input[name="entry.728592466"]');
+    const phone = phoneInput.value.trim();
+    const phoneClean = phone.replace(/\s+/g, '');
+
+    if (!/^\+?[1-9]\d{6,14}$/.test(phoneClean)) {
+      alert("Introduce un teléfono válido. Ej: +34600123456 o 34600123456");
+      return;
+    }
+
+    phoneInput.value = phoneClean;
+
+    // FormData
     const fd = new FormData(form);
-    const firstName = (fd.get('first_name') || '').toString().trim();
-    const lastName  = (fd.get('last_name')  || '').toString().trim();
+
+    const firstName = document.getElementById('first_name').value.trim();
+    const lastName  = document.getElementById('last_name').value.trim();
     const fullName  = (firstName + ' ' + lastName).trim();
 
-    let webhookOk = false;
+    // 🔹 LINK HACIA EL USUARIO (para CRM)
+    const userPhone = phoneClean.replace('+','');
 
-    // 1) Intentar enviar datos al webhook
+    const followMsg = `Hola ${fullName}, te contacto por tu interés en SebasBot.`;
+
+    const waUserLink = `https://wa.me/${userPhone}?text=${encodeURIComponent(followMsg)}`;
+
+    // 🔴 GUARDAR EN GOOGLE FORMS (link al usuario)
+    fd.set('entry.44797240', waUserLink);
+
+    // ENVIAR FORM
     try {
-      const res = await fetch(form.action, {
-        method: form.method || 'POST',
+      await fetch(form.action, {
+        method: 'POST',
         body: fd,
       });
-      webhookOk = !!res.ok;
     } catch (err) {
-      console.error('Error enviando datos al webhook', err);
-      webhookOk = false;
+      console.error('Error enviando form', err);
     }
 
-    // 2) Armar mensaje según el resultado del webhook
-    let msg;
-    if (webhookOk) {
-      msg = `Hola, soy ${fullName || 'un interesado'}. Ya he enviado mis datos por el formulario y estoy interesado en la prueba gratis de 3 días del chatbot.`;
-    } else {
-      msg = `Hola, soy ${fullName || 'un interesado'}. Estoy interesado en la prueba gratis de 3 días del chatbot, pero el formulario no pudo enviar mis datos. ¿Podemos seguir por aquí?`;
-    }
+    // 🔹 REDIRECCIÓN A TU WHATSAPP (flujo venta)
+    const msgToYou = `Hola, soy ${fullName || 'un interesado'}. Ya envié mis datos y quiero la prueba gratis de 14 días de SebasBot.`;
 
-    const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    const waYou = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msgToYou)}`;
 
-    const waHidden = document.getElementById('whatsapp_link');
-    if (waHidden) waHidden.value = waUrl;
+    setTimeout(() => {
+      window.location.href = waYou;
+    }, 200);
 
-    // 3) Pase lo que pase con el webhook, siempre abrir WhatsApp
-    window.open(waUrl, '_blank');
   });
 }
 
 // Year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Live chat SIMULATOR (no backend): 2 turns, then CTA
+// Live chat SIMULATOR
 (function(){
   const box = document.getElementById('liveChat');
   const input = document.getElementById('liveInput');
   const ctaLive = document.querySelector('.live-input a.btn.primary');
   if(!box || !input) return;
 
-  let turns = 0; // user messages counted
   let done = false;
 
   function add(type, text){
@@ -472,15 +522,14 @@ document.getElementById('year').textContent = new Date().getFullYear();
     d.textContent = text;
     box.appendChild(d);
     box.scrollTop = box.scrollHeight;
-    return d;
   }
+
   function addHTML(html){
     const w = document.createElement('div');
     w.className = 'msg bot';
     w.innerHTML = html;
     box.appendChild(w);
     box.scrollTop = box.scrollHeight;
-    return w;
   }
 
   function firstName(v){
@@ -488,34 +537,28 @@ document.getElementById('year').textContent = new Date().getFullYear();
     return p[0]||'allí';
   }
 
-  function finish(name){
-    done = true; turns = 999;
-    const html = `Para probarlo de verdad, haz clic aquí ↓<br><br>` +
-                 `<a class="btn primary" href="#demo">Prueba gratis 3 días</a>`;
+  function finish(){
+    done = true;
+    const html = `Para probarlo de verdad, haz clic aquí ↓<br><br>
+    <a class="btn primary" href="#demo">Prueba gratis 14 días</a>`;
     addHTML(html);
     input.disabled = true;
-    input.placeholder = 'Demo simulada. Usa el botón para continuar →';
-    if(ctaLive) ctaLive.textContent = 'Prueba gratis 3 días';
   }
 
   input.addEventListener('keydown', (e)=>{
-    if(e.key !== 'Enter' || !input.value.trim()) return;
-    if(done) return;
+    if(e.key !== 'Enter' || !input.value.trim() || done) return;
 
     const v = input.value.trim();
     input.value='';
     add('user', v);
-    turns++;
 
-    if(turns === 1){
-      add('bot', `Encantado, ${firstName(v)} 🙌`);
-      setTimeout(()=> add('bot', 'Esta es una simulación rápida. Te muestro cómo guardamos datos y agendamos por WhatsApp.'), 400);
-      setTimeout(()=> finish(firstName(v)), 1300);
-    } else {
-      finish(firstName(v));
-    }
+    add('bot', `Encantado, ${firstName(v)} 🙌`);
+    setTimeout(()=> add('bot', 'Esta es una simulación rápida.'), 400);
+    setTimeout(()=> finish(), 1200);
   });
+
 })();
+
 </script>
 </body>
 </html>
